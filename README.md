@@ -1,1 +1,3 @@
-# ALTEA_TP8
+# Objectifs du TP
+
+* Utilisation des associations avec JPA

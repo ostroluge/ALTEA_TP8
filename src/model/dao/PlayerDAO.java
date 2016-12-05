@@ -1,5 +1,7 @@
 package model.dao;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,5 +26,23 @@ public class PlayerDAO {
 		List<Player> players = getEntityManager().createQuery(
 				"select p from Player p").getResultList();
 		return players;
+	}
+
+	public List<Player> getPlayers(Collection<Integer> ids) {
+		List<Player> result = new ArrayList<Player>();
+		for (Integer id : ids) {
+			Player p = getEntityManager().find(Player.class, id);
+			if (p != null) {
+				result.add(p);
+			}
+		}
+		return result;
+	}
+	
+	public Player update(Player p) {
+		getEntityManager().getTransaction().begin();
+		p = getEntityManager().merge(p);
+		getEntityManager().getTransaction().commit();
+		return p;
 	}
 }

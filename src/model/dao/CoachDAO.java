@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 import model.dto.Coach;
+import model.dto.Team;
 
 public class CoachDAO {
 
@@ -24,5 +25,9 @@ public class CoachDAO {
 		List<Coach> coaches = getEntityManager().createQuery(
 				"select c from Coach c").getResultList();
 		return coaches;
+	}
+	
+	public Coach getCoach (int id) {
+		return getEntityManager().find(Coach.class, id);
 	}
 }

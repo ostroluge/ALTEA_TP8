@@ -26,17 +26,17 @@
 					requiredMessage="Nom obligatoire" />
 				<html:message for="name" />
 				<html:outputText value="Coach" />
-				<html:selectOneMenu id="coaches" value="#{teamCtrl.mEditedTeam.coach}">
+				<html:selectOneMenu id="coaches" value="#{teamCtrl.coachIdSelected}">
 					<core:selectItems value="#{teamCtrl.coaches}" var="c"
-						itemLabel="#{c.name}" itemValue="#{c}" />
+						itemLabel="#{c.name}" itemValue="#{c.id}" />
 				</html:selectOneMenu>
 				<html:message for="coaches" />
-				<!-- <html:outputText value="Joueurs" />
-				<html:selectManyListbox id="players" value="#{teamCtrl.mEditedTeam.players}">
+				<html:outputText value="Joueurs" />
+				<html:selectManyListbox id="players" value="#{teamCtrl.playerIdsSelected}">
 					<core:selectItems value="#{teamCtrl.players}" var="p"
-						iteamLabel="#{p.name}" iteamValue="#{p.name}" />
+						itemLabel="#{p.name}" itemValue="#{p.id}" />
 				</html:selectManyListbox>
-				<html:message for="players" /> -->
+				<html:message for="players" />
 				<html:commandButton value="Editer"
 					action="#{teamCtrl.updateTeam}" />
 			</html:panelGrid>

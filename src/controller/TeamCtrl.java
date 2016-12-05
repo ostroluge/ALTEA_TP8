@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -25,6 +27,8 @@ public class TeamCtrl {
 	private Team mNewTeam = new Team();
 	private Long idTeam;
 	private Team mEditedTeam;
+	private int coachIdSelected;
+	private Collection<Integer> playerIdsSelected = new ArrayList<Integer>();
 	
 	public Collection<Team> getTeams() {
 		if (teams == null) {
@@ -69,6 +73,18 @@ public class TeamCtrl {
 	}
 
 	public String updateTeam() {
+		Coach coachSelected = coachDAO.getCoach(getCoachIdSelected());
+		if (coachSelected != null) {
+			mEditedTeam.setCoach(coachSelected);
+		}
+		List<Player> players = playerDAO.getPlayers(getPlayerIdsSelected());
+		for (Player player : players) {
+			player.setTeam(mEditedTeam);
+			playerDAO.update(player);
+		}
+		if (players != null) {
+			mEditedTeam.setPlayers(players);
+		}
 		teamDAO.update(mEditedTeam);
 		teams.clear();
 		teams.addAll(teamDAO.selectAll());
@@ -101,5 +117,21 @@ public class TeamCtrl {
 
 	public void setTeams(Collection<Team> teams) {
 		this.teams = teams;
+	}
+
+	public int getCoachIdSelected() {
+		return coachIdSelected;
+	}
+
+	public void setCoachIdSelected(int coachIdSelected) {
+		this.coachIdSelected = coachIdSelected;
+	}
+
+	public Collection<Integer> getPlayerIdsSelected() {
+		return playerIdsSelected;
+	}
+
+	public void setPlayerIdsSelected(Collection<Integer> playerIdsSelected) {
+		this.playerIdsSelected = playerIdsSelected;
 	}
 }

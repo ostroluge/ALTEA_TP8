@@ -6,6 +6,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+/**
+ * @author ostrowski
+ *
+ */
 @Entity
 @DiscriminatorValue("Player")
 public class Player extends Person implements Serializable {
@@ -33,5 +37,10 @@ public class Player extends Person implements Serializable {
 
 	public void setTeam(Team team) {
 		this.team = team;
+	}
+
+	@Override
+	public String toString() {
+		return super.getName();
 	}
 }

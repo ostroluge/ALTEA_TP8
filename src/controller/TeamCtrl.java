@@ -5,7 +5,11 @@ import java.util.Collection;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import model.dao.CoachDAO;
+import model.dao.PlayerDAO;
 import model.dao.TeamDAO;
+import model.dto.Coach;
+import model.dto.Player;
 import model.dto.Team;
 
 @ManagedBean (name="teamCtrl")
@@ -13,7 +17,11 @@ import model.dto.Team;
 public class TeamCtrl {
 
 	private TeamDAO teamDAO = new TeamDAO();
+	private CoachDAO coachDAO = new CoachDAO();
+	private PlayerDAO playerDAO = new PlayerDAO();
 	private Collection<Team> teams;
+	private Collection<Coach> coaches;
+	private Collection<Player> players;
 	private Team mNewTeam = new Team();
 	private Long idTeam;
 	private Team mEditedTeam;
@@ -25,6 +33,20 @@ public class TeamCtrl {
 		return teams;
 	} 
 
+	public Collection<Coach> getCoaches() {
+		if (coaches == null) {
+			coaches = coachDAO.selectAll();
+		}
+		return coaches;
+	}
+	
+	public Collection<Player> getPlayers() {
+		if (players == null) {
+			players = playerDAO.selectAll();
+		}
+		return players;
+	}
+	
 	public String createTeam() {
 		teamDAO.insert(mNewTeam);
 		mNewTeam = new Team();
